@@ -1,13 +1,22 @@
 import React from "react";
+import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/Layout/NavBar";
 import Login from "./components/pages/Login";
+import Welcome from "./components/pages/Welcome";
 
 function App() {
   return (
-    <div className="App">
+    <React.Fragment>
       <NavBar />
-      <Login/>
-    </div>
+      <Switch>
+        <Route exact path="/">
+          <Login />
+        </Route>
+        <Route path="/welcome">
+          <Welcome />
+        </Route>
+      </Switch>
+    </React.Fragment>
   );
 }
 
