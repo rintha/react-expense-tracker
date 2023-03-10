@@ -27,12 +27,18 @@ const Login = () => {
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDIus7yBYANWAFKjKvWbncBM2T09RJUNJA";
     }
 
-    const email = emailInputRef.current.value;
-    const password = passwordInputRef.current.value;
-    const confirmPassword = confirmPasswordRef.current.value;
+    const email = emailInputRef.current?.value;
+    const password = passwordInputRef.current?.value;
+    const confirmPassword = confirmPasswordRef.current?.value;
 
-    if (password !== confirmPassword) {
+    if (password !== confirmPassword && !isLogin) {
       alert("Entered password is incorrect");
+      return;
+    }
+
+    if (!email || !password || (!isLogin && !confirmPassword)) {
+      alert("Please fill in all required fields");
+      return;
     }
 
     axios
@@ -48,6 +54,7 @@ const Login = () => {
           history.push("/welcome");
           console.log(response.data.idToken);
           console.log("User has successfully signed up");
+          console.log(response);
         }
       })
       .catch((err) => {
@@ -88,7 +95,11 @@ const Login = () => {
                 </Form.Group>
               )}
               <div className="d-grid gap-2">
-                <button size="lg" className="btn btn-primary mb-2">
+                <button
+                  type="submit"
+                  size="lg"
+                  className="btn btn-primary mb-2"
+                >
                   {isLogin ? "Login" : "Sign Up"}
                 </button>
               </div>
