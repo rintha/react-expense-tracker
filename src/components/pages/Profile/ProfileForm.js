@@ -1,11 +1,36 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Form, Row, Col } from "react-bootstrap";
 
 const ProfileForm = () => {
+  const [profile, setProfile] = useState({ name: "", photoUrl: "" });
   const nameInputRef = useRef();
   const profilePhotoRef = useRef();
+
+  //fetch profile when refreshes
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios
+        .post(
+          "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDIus7yBYANWAFKjKvWbncBM2T09RJUNJA",
+          {
+            idToken: token,
+          }
+        )
+        .then((res) => {
+          console.log(res.data.users[0].displayName);
+          setProfile({
+            name: res.data.users[0].displayName || "",
+            photoUrl: res.data.users[0].photoUrl || "",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
 
   const updateProfileHandler = (e) => {
     e.preventDefault();
@@ -29,14 +54,20 @@ const ProfileForm = () => {
       )
       .then((res) => {
         console.log(res.data);
-        nameInputRef.current.reset();
-        profilePhotoRef.current.reset();
-        alert("userdetails has been updated")
+        alert("userdetails has been updated");
       })
       .catch((err) => {
         console.log(err.message);
         // handle error case here
       });
+  };
+
+  const onNameChange = (e) => {
+    setProfile({ ...profile, name: e.target.value });
+  };
+
+  const onPhotoUrlChange = (e) => {
+    setProfile({ ...profile, photoUrl: e.target.value });
   };
 
   return (
@@ -68,6 +99,7 @@ const ProfileForm = () => {
           <Col>
             <Form.Control
               type="text"
+              onChange={onNameChange}
               ref={nameInputRef}
               style={{ width: "20rem" }}
             />
@@ -78,12 +110,15 @@ const ProfileForm = () => {
           <Col>
             <Form.Control
               type="text"
+              onChange={onPhotoUrlChange}
               ref={profilePhotoRef}
               style={{ width: "20rem" }}
             />
           </Col>
         </Row>
-        <button className="btn btn-danger">Update</button>
+        <button type="submit" className="btn btn-danger">
+          Update
+        </button>
       </Form>
     </section>
   );
