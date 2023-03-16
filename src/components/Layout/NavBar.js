@@ -1,15 +1,23 @@
 import React from "react";
-import { Navbar, Container } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import { Navbar, Button,Container } from "react-bootstrap";
 
 const NavBar = () => {
+  const history = useHistory();
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    history.replace("/");
+  };
+
   return (
     <Navbar bg="primary" variant="dark">
-      <div className="m-2">
-        <Container>
-          <Navbar.Brand>Expense Tracker</Navbar.Brand>
-        </Container>
-      </div>
-    </Navbar>
+  <Container className="d-flex justify-content-between">
+    <Navbar.Brand>Expense Tracker</Navbar.Brand>
+    <Button  onClick={logoutHandler} variant="danger">Logout</Button>
+  </Container>
+</Navbar>
+
+  
   );
 };
 
