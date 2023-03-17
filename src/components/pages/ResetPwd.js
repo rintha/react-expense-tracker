@@ -76,7 +76,7 @@ const ResetPwd = () => {
               {isLoading && <p>Loading...</p>}
               <p>
                 Already a user?
-                <Link to="/">
+                <Link to="/login">
                   <span>Login</span>
                 </Link>
               </p>

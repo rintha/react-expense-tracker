@@ -31,36 +31,43 @@ const Welcome = () => {
   };
 
   return (
-    <div
-    className="m-3 d-flex justify-content-between align-items-center"
-      style={{
-        borderBottom: "1px solid #ccc",
-      }}
-    >
-      <i>WELCOME TO EXPENSE TRACKER!!!</i>
-      <div className="text-end d-flex">
-        <p
-          className="text-end bg-light-ash  px-3 py-2 "
-          style={{ backgroundColor: "#ccc", borderRadius: "10px" }}
-        >
-          <i>
-            Your profile is incomplete.
-            <span
-              onClick={profileUpdateHandler}
-              style={{
-                cursor: "pointer",
-                color: "blue",
-              }}
-            >
-              Complete Now
-            </span>
-          </i>
-        </p>
-        <Button className="mb-3 ms-2" variant="danger" onClick={verifyEmailHandler}>
-          Verify Your Email
-        </Button>
+    <>
+      <div
+        className="m-3 d-flex justify-content-between align-items-center"
+        style={{
+          borderBottom: "1px solid #ccc",
+        }}
+      >
+        <i>WELCOME TO EXPENSE TRACKER!!!</i>
+        <div className="text-end d-flex">
+          <p
+            className="text-end bg-light-ash  px-3 py-2 "
+            style={{ backgroundColor: "#ccc", borderRadius: "10px" }}
+          >
+            <i>
+              Your profile is incomplete.
+              <span
+                onClick={profileUpdateHandler}
+                style={{
+                  cursor: "pointer",
+                  color: "blue",
+                }}
+              >
+                Complete Now
+              </span>
+            </i>
+          </p>
+          <Button
+            className="mb-3 ms-2"
+            variant="danger"
+            onClick={verifyEmailHandler}
+          >
+            Verify Your Email
+          </Button>
+        </div>
       </div>
-    </div>
+
+    </>
   );
 };
 
