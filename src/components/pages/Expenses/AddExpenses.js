@@ -1,4 +1,5 @@
 import React, { useRef, useContext, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import ExpenseContext from "../../Store/expense-context";
@@ -23,7 +24,20 @@ const AddExpenses = () => {
     };
     expenseCtx.addExpense(newExpense);
     setExpenses([...expenses, newExpense]); // Add new expense to state
-  };
+
+  axios.post('https://expense-tracker-9548b-default-rtdb.asia-southeast1.firebasedatabase.app/expenses.json',{
+    id: Math.random(),
+  amount: amountInputRef.current.value,
+  description: descriptionInputRef.current.value,
+  category: categoryInputRef.current.value,
+})
+.then((res)=>{
+    console.log(res.data.name);
+})
+.catch(err=>{
+    console.log(err);
+})
+};
 
   return (
     <>

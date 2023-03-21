@@ -3,11 +3,13 @@ import React, { useState } from "react";
 const ExpenseContext = React.createContext({
   expenses: [],
   addExpense: (expense) => {},
+  expenselist: (data) => {},
 });
 
 export const ExpenseContextProvider = (props) => {
 
   const [expenses, setExpenses] = useState([]);
+  const [expenseData, setExpenseData] = useState([]);
 
   const addExpenseHandler = (expense) => {
     console.log(expense);
@@ -16,9 +18,16 @@ export const ExpenseContextProvider = (props) => {
     });
   };
 
+  const addExpenseFromBackend = (expense) => {
+    console.log(expense);
+    setExpenseData(expense);
+  };
+
   const values = {
     expenses: expenses,
     addExpense: addExpenseHandler,
+    expenselist: addExpenseFromBackend,
+    expensedata: expenseData,
   };
   
   return (
